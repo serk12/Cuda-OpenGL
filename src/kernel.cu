@@ -15,9 +15,9 @@ __global__ void distanceKernel(uchar4 *d_out, int w, int h, int2 pos) {
         const int dist_x = sqrtf((c - pos.x)*(c - pos.x));
         const int dist_y = sqrtf((c - pos.y)*(c - pos.y));
 
-        d_out[i].x = clip(255 - dist_x);
-        d_out[i].y = clip(255 - dist_y);
-        d_out[i].z = clip(255 - dist);
+        d_out[i].x = clip(255 - dist);
+        d_out[i].y = clip(255 - dist);
+        d_out[i].z = 0;
         d_out[i].w = 255;
 }
 

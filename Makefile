@@ -6,8 +6,9 @@ else
     LDFLAGS += -L/usr/local/cuda/samples/common/lib/linux/x86_64
     LDFLAGS += -lglut -lGL -lGLU -lGLEW
 endif
+LDFLAGS += -Wno-deprecated-gpu-targets
 NVCC = /usr/local/cuda/bin/nvcc
-NVCC_FLAGS = -g -G -Xcompiler "-Wall -Wno-deprecated-declarations"
+NVCC_FLAGS = -g -G -Xcompiler "-Wall -Wno-deprecated-declarations" -Wno-deprecated-gpu-targets
 
 all: ./build ./build/main.exe
 

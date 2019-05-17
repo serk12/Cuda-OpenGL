@@ -11,12 +11,11 @@ __global__ void distanceKernel(uchar4 *d_out, int w, int h, int2 pos) {
         const int r = blockIdx.y*blockDim.y + threadIdx.y;
         if ((c >= w) || (r >= h)) return;  // Check if within image bounds
         const int i = c + r*w; // 1D indexing
-        const int dist = sqrtf((c - pos.x)*(c - pos.x) + (r - pos.y)*(r - pos.y));
-        const int dist_x = sqrtf((c - pos.x)*(c - pos.x));
-        const int dist_y = sqrtf((c - pos.y)*(c - pos.y));
-
-        d_out[i].x = clip(255 - dist);
-        d_out[i].y = clip(255 - dist);
+        const int dist = sqrtf((c - pos.x)*(c - pos.x) +
+                               (r - pos.y)*(r - pos.y));
+        const unsigned char intensity = clip(255 - dist);
+        d_out[i].x = intensity;
+        d_out[i].y = intensity;
         d_out[i].z = 0;
         d_out[i].w = 255;
 }

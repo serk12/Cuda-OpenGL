@@ -42,10 +42,10 @@ void drawTexture() {
         glEnable(GL_TEXTURE_2D);
         glBegin(GL_QUADS);
         glColor3f(1.0f,1.0f,1.0f);
-        glTexCoord2f(0.0f, 0.0f); glVertex3f(-W/100, -H/100,-3);
-        glTexCoord2f(0.0f, 1.0f); glVertex3f(-W/100,  H/100,-3);
-        glTexCoord2f(1.0f, 1.0f); glVertex3f(W/100,  H/100, -3);
-        glTexCoord2f(1.0f, 0.0f); glVertex3f(W/100, -H/100, -3);
+        glTexCoord2f(0.0f, 0.0f); glVertex3f(-W/100, -H/100,-7);
+        glTexCoord2f(0.0f, 1.0f); glVertex3f(-W/100,  H/100,-7);
+        glTexCoord2f(1.0f, 1.0f); glVertex3f(W/100,  H/100, -7);
+        glTexCoord2f(1.0f, 0.0f); glVertex3f(W/100, -H/100, -7);
         glEnd();
         glDisable(GL_TEXTURE_2D);
 }
@@ -56,32 +56,32 @@ void drawCube() {
         glRotatef(zRotated,0.0,0.0,1.0);
 
         glBegin(GL_QUADS);  // Draw The Cube Using quads
-        glColor3f(1.0f,0.0f,0.0f);  // Color Blue
+        glColor3f(1.0f,0.0f,0.0f);
         glVertex3f( 1.0f, 1.0f,-1.0f);  // Top Right Of The Quad (Top)
         glVertex3f(-1.0f, 1.0f,-1.0f);  // Top Left Of The Quad (Top)
         glVertex3f(-1.0f, 1.0f, 1.0f);  // Bottom Left Of The Quad (Top)
         glVertex3f( 1.0f, 1.0f, 1.0f);  // Bottom Right Of The Quad (Top)
-        glColor3f(0.0f,1.0f,0.0f);  // Color Orange
+        glColor3f(0.0f,1.0f,0.0f);
         glVertex3f( 1.0f,-1.0f, 1.0f);  // Top Right Of The Quad (Bottom)
         glVertex3f(-1.0f,-1.0f, 1.0f);  // Top Left Of The Quad (Bottom)
         glVertex3f(-1.0f,-1.0f,-1.0f);  // Bottom Left Of The Quad (Bottom)
         glVertex3f( 1.0f,-1.0f,-1.0f);  // Bottom Right Of The Quad (Bottom)
-        glColor3f(0.0f,0.0f,1.0f);  // Color Red
+        glColor3f(0.0f,0.0f,0.5f);
         glVertex3f( 1.0f, 1.0f, 1.0f);  // Top Right Of The Quad (Front)
         glVertex3f(-1.0f, 1.0f, 1.0f);  // Top Left Of The Quad (Front)
         glVertex3f(-1.0f,-1.0f, 1.0f);  // Bottom Left Of The Quad (Front)
         glVertex3f( 1.0f,-1.0f, 1.0f);  // Bottom Right Of The Quad (Front)
-        glColor3f(1.0f,1.0f,0.0f);  // Color Yellow
+        glColor3f(1.0f,1.0f,0.0f);
         glVertex3f( 1.0f,-1.0f,-1.0f);  // Top Right Of The Quad (Back)
         glVertex3f(-1.0f,-1.0f,-1.0f);  // Top Left Of The Quad (Back)
         glVertex3f(-1.0f, 1.0f,-1.0f);  // Bottom Left Of The Quad (Back)
         glVertex3f( 1.0f, 1.0f,-1.0f);  // Bottom Right Of The Quad (Back)
-        glColor3f(0.0f,1.0f,1.0f);  // Color Blue
+        glColor3f(0.0f,1.0f,1.0f);
         glVertex3f(-1.0f, 1.0f, 1.0f);  // Top Right Of The Quad (Left)
         glVertex3f(-1.0f, 1.0f,-1.0f);  // Top Left Of The Quad (Left)
         glVertex3f(-1.0f,-1.0f,-1.0f);  // Bottom Left Of The Quad (Left)
         glVertex3f(-1.0f,-1.0f, 1.0f);  // Bottom Right Of The Quad (Left)
-        glColor3f(1.0f,0.0f,1.0f);  // Color Violet
+        glColor3f(1.0f,0.0f,1.0f);
         glVertex3f( 1.0f, 1.0f,-1.0f);  // Top Right Of The Quad (Right)
         glVertex3f( 1.0f, 1.0f, 1.0f);  // Top Left Of The Quad (Right)
         glVertex3f( 1.0f,-1.0f, 1.0f);  // Bottom Left Of The Quad (Right)

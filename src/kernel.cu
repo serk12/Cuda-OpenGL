@@ -16,7 +16,7 @@ __global__ void distanceKernel(uchar4 *d_out, int w, int h, int2 pos) {
         const unsigned char intensity = clip(255 - dist);
         d_out[i].x = intensity;
         d_out[i].y = intensity;
-        d_out[i].z = 0;
+        d_out[i].z = 255;
         d_out[i].w = 255;
 }
 

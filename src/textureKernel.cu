@@ -1,4 +1,5 @@
-#include "../header/kernel.h"
+#include "../header/textureKernel.h"
+
 #define TX 32
 #define TY 32
 
@@ -21,7 +22,7 @@ __global__ void distanceKernel(uchar4 *d_out, int w, int h, int2 pos) {
     d_out[i].w = 255;
 }
 
-void kernelLauncher(uchar4 *d_out, int w, int h, int2 pos) {
+void textureKernelLauncher(uchar4 *d_out, int w, int h, int2 pos) {
     const dim3 blockSize(TX, TY);
     const dim3 gridSize = dim3((w + TX - 1) / TX, (h + TY - 1) / TY);
     distanceKernel << < gridSize, blockSize >> > (d_out, w, h, pos);

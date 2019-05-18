@@ -12,13 +12,16 @@ NVCC_FLAGS = -g -G -Xcompiler "-Wall -Wno-deprecated-declarations" -Wno-deprecat
 
 all: ./build ./build/main.exe
 
-./build/main.exe: ./build/main.o ./build/kernel.o
+./build/main.exe: ./build/main.o ./build/vertexKernel.o ./build/textureKernel.o
 	$(NVCC) $^ -o $@ $(LDFLAGS)
 
-./build/main.o: ./src/main.cpp ./header/kernel.h ./header/interactions.h
+./build/main.o: ./src/main.cpp ./header/vertexKernel.h ./header/textureKernel.h  ./header/interactions.h
 	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
-./build/kernel.o: ./src/kernel.cu ./header/kernel.h
+./build/vertexKernel.o: ./src/vertexKernel.cu ./header/vertexKernel.h
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
+
+./build/textureKernel.o: ./src/textureKernel.cu ./header/textureKernel.h
 	$(NVCC) $(NVCC_FLAGS) -c $< -o $@
 
 ./build:

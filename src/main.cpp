@@ -27,6 +27,31 @@ struct cudaGraphicsResource *cuda_pbo_resource;
 
 GLfloat xRotated, yRotated, zRotated;
 
+void initGLUT(int *argc, char **argv) {
+        glutInit(argc, argv);
+        glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
+        glutInitWindowPosition(100, 100);
+        glutInitWindowSize(600, 600);
+        glutCreateWindow(TITLE_STRING);
+#ifndef __APPLE__
+        glewInit();
+#endif
+        glClearColor(0,0,0,0);
+}
+
+void initPixelBuffer() {
+        glGenBuffers(1, &pbo);
+        glBindBuffer(GL_PIXEL_UNPACK_BUFFER, pbo);
+        glBufferData(GL_PIXEL_UNPACK_BUFFER, 4*W*H*sizeof(GLubyte), 0,
+                     GL_STREAM_DRAW);
+
+        glGenTextures(1, &tex);
+        glBindTexture(GL_TEXTURE_2D, tex);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        cudaGraphicsGLRegisterBuffer(&cuda_pbo_resource, pbo,
+                                     cudaGraphicsMapFlagsWriteDiscard);
+}
+
 void render() {
         uchar4 *d_out = 0;
         cudaGraphicsMapResources(1, &cuda_pbo_resource, 0);
@@ -91,7 +116,6 @@ void drawCube() {
 
 void draw() {
         glMatrixMode(GL_MODELVIEW);
-        // glEnable(GL_CULL_FACE);
         glEnable(GL_DEPTH_TEST);
         glDepthMask(GL_TRUE);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -105,30 +129,6 @@ void display() {
         render();
         draw();
         glutSwapBuffers();
-}
-
-void initGLUT(int *argc, char **argv) {
-        glutInit(argc, argv);
-        glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
-        glutInitWindowPosition(100, 100);
-        glutInitWindowSize(600, 600);
-        glutCreateWindow(TITLE_STRING);
-#ifndef __APPLE__
-        glewInit();
-#endif
-        glClearColor(0,0,0,0);
-}
-
-void initPixelBuffer() {
-        glGenBuffers(1, &pbo);
-        glBindBuffer(GL_PIXEL_UNPACK_BUFFER, pbo);
-        glBufferData(GL_PIXEL_UNPACK_BUFFER, 4*W*H*sizeof(GLubyte), 0,
-                     GL_STREAM_DRAW);
-        glGenTextures(1, &tex);
-        glBindTexture(GL_TEXTURE_2D, tex);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        cudaGraphicsGLRegisterBuffer(&cuda_pbo_resource, pbo,
-                                     cudaGraphicsMapFlagsWriteDiscard);
 }
 
 void exitfunc() {
@@ -156,18 +156,25 @@ void animation(void) {
 
 int main(int argc, char** argv) {
         printInstructions();
+
+        //OpenGL init
         initGLUT(&argc, argv);
+
+        //events init
         glutKeyboardFunc(keyboard);
         glutSpecialFunc(handleSpecialKeypress);
         glutPassiveMotionFunc(mouseMove);
         glutMotionFunc(mouseDrag);
         glutDisplayFunc(display);
-        initPixelBuffer();
-
         glutReshapeFunc(reshape);
         glutIdleFunc(animation);
-
-        glutMainLoop();
         atexit(exitfunc);
+
+        //Cuda init
+        initPixelBuffer();
+
+        //main loop
+        glutMainLoop();
+
         return 0;
 }

@@ -114,11 +114,7 @@ void drawTexture() {
     glDisable(GL_TEXTURE_2D);
 }
 
-void drawCube() {
-    // glRotatef(xRotated, 1.0, 0.0, 0.0);
-    // glRotatef(yRotated, 0.0, 1.0, 0.0);
-    // glRotatef(zRotated, 0.0, 0.0, 1.0);
-
+void drawVbo() {
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glVertexPointer(4, GL_FLOAT, 0, 0);
 
@@ -136,7 +132,7 @@ void draw() {
     glLoadIdentity();
     glTranslatef(0.0, 0.0, -10.5);
     drawTexture();
-    drawCube();
+    drawVbo();
 }
 
 void display() {
